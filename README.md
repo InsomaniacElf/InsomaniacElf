@@ -13,8 +13,7 @@ Here you’ll find projects ranging from ML experiments and IoT tinkering to des
 </div>
 
 ---
-![Pacman Contribution Graph](https://raw.githubusercontent.com/InsomaniacElf/InsomaniacElf/output/pacman-contribution-graph.svg)
-
+![](https://raw.githubusercontent.com/InsomaniacElf/InsomaniacElf/output/pacman-contribution-graph.svg)
 
 ###
 
