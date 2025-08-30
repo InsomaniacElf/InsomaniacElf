@@ -1,0 +1,29 @@
+name: Generate Pacman Contribution Graph
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # runs once daily
+  workflow_dispatch:       # allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate Pacman
+        uses: yoshi389111/github-profile-3d-contrib@0.6.0
+        with:
+          user_name: InsomaniacElf
+          output_file: ./pacman-contribution-graph.svg
+          theme: pacman
+
+      - name: Commit & Push
+        run: |
+          mkdir -p output
+          mv pacman-contribution-graph.svg output/
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add output/pacman-contribution-graph.svg
+          git commit -m "update pacman graph"
+          git push
