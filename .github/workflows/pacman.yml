@@ -1,25 +1,28 @@
-name: Generate Pacman Contribution Graph
+name: Pacman Contribution Graph
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
-
-permissions:
-  contents: write
+    - cron: '0 0 * * *' # Runs daily
+  workflow_dispatch: # Allows manual trigger
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: Pacman-contrib/pacman-graph-action@v1
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Generate Pacman Graph
+        uses: abozanona/pacman-contribution-graph@main
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit & Push
+          username: InsomaniacElf   # 👈 your GitHub username
+          color: yellow             # Pacman color (you can change)
+          output: pacman.svg        # Output file name
+
+      - name: Commit and Push
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Update Pacman contribution graph" || echo "No changes to commit"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add pacman.svg
+          git commit -m "Update Pacman contribution graph"
           git push
